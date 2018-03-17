@@ -24,42 +24,40 @@ class App extends React.Component {
 
   render() {
     return (
-
-        <div className="wrapper">
-          <div className="main">
-            <div className="container">
-              <div className="row">
-                <div className="col-lg-12 title-container">
-                  <h1 className="title">Home</h1>
-                </div>
+      <div className="wrapper">
+        <div className="main">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-12 title-container">
+                <h1 className="title">Home</h1>
               </div>
-              <div className="row">
-                <PanelButton 
-                  name="Power" 
-                  icon={ power_icon } 
-                  click={this.clickHandler} />
-                <PanelButton 
-                  name="Water" 
-                  icon={ water_icon } />
-                <PanelButton 
-                  name="HVAC" 
-                  icon={ hvac_icon } />
-                <PanelButton
-                  name="Climate" 
-                  icon={ climate_icon } />
-              </div>
-              <div className="row">
-                <div className="container body">
-                  <PanelBody name="Power" />
-                  <PanelBody name="Water" />
-                  <PanelBody name="HVAC"/>
-                  <PanelBody name="Climate" />
-                </div>
+            </div>
+            <div className="row">
+              <PanelButton 
+                name="Power" 
+                icon={ power_icon } 
+                click={this.clickHandler} />
+              <PanelButton 
+                name="Water" 
+                icon={ water_icon } />
+              <PanelButton 
+                name="HVAC" 
+                icon={ hvac_icon } />
+              <PanelButton
+                name="Climate" 
+                icon={ climate_icon } />
+            </div>
+            <div className="row">
+              <div className="container body">
+                <PanelBody name="Power"/>
+                <PanelBody name="Water" />
+                <PanelBody name="HVAC"/>
+                <PanelBody name="Climate" />
               </div>
             </div>
           </div>
         </div>
-
+      </div>
     );
   }
 };
