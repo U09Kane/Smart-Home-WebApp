@@ -2,7 +2,7 @@ import React from 'react';
 
 const panel_body = props => (
 	<div className="body-climate">
-		This is the body of {props.name}
+    <p>Welcome to the {props.name} body</p>
 	</div>
 
 );
