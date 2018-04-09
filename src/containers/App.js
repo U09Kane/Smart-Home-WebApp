@@ -1,60 +1,88 @@
 import React from 'react';
-import PanelButton from './components/PanelButton';
-import PanelBody from './components/PanelBody';
-import power_icon from './img/light-bulb.svg';
-import water_icon from './img/drop.svg';
-import hvac_icon from './img/fan.svg';
-import climate_icon from './img/thermometer.svg';
+import axios from 'axios';
 
-const apiJSON = {
-  power: {
-    info: {
-      light1: false,
-      light2: true,
-      light3: false
-    },
-    usage: {
-      week: 150,
-      nextWeek: 155,
-      avgweek: 152
-    }
+import PanelButton from '../components/PanelButton/PanelButton';
+import PanelBody from '../components/PanelBody/PanelBody';
+import Sensors from '../components/Sensors/Sensors';
+import power_icon from '../assets/light-bulb.svg';
+import water_icon from '../assets/drop.svg';
+import hvac_icon from '../assets/fan.svg';
+import climate_icon from '../assets/thermometer.svg';
+import './App.css';
 
-  },
-  water: {
-
-  },
-  hvac: {
-
-  },
-  climate: {
-
-  }
-
-}
 
 class App extends React.Component {
-
 
   state = {
     powerButtonClicked: false,
     waterButtonClicked: false,
     hvacButtonClicked: false,
     climateButtonClicked: false,
+    showSensors: false,
 
-    // API Json:
+    status: {
+      power: {
+        last_week: null,
+        this_week: null,
+        next_week: null
+      },
+      water: {
+        last_week: null,
+        this_week: null,
+        next_week: null
+      },
+      hvac: {
+        last_week: null,
+        this_week: null,
+        next_week: null
+      },
+      climate: {
+        thermostat: null,
+        out_temp: null,
+        description: null,
+        humidity: null
+      },
+      sensors: [
+        {
 
-    weeklPowerUsage: undefined,
-    projectedPowerUsage: undefined,
-
-    weeklWaterUsage: undefined,
-    projectedWaterUsage: undefined,
-
-    weeklHVAC: undefined,
-    projectedHVAC: undefined,
+          name: null,
+          is_on: false,
+          id: null,
+          type: null,
+        }
+      ]
+    }
   };
 
-  panelClickHandler = (panelName) => {
+  // postReq = () => {
+  //   const payload = {
+  //     title: "Moby Dick",
+  //     author: "Herman Melville",
+  //     rating: "it's alright"
+  //   }
+  //   axios.post("http://localhost:3000/profile", payload)
+  //     .then(response => console.log(response));
+  // }
 
+  componentDidMount () {
+    axios.get('https://gist.githubusercontent.com/U09Kane/2e739089f77412dab4958741265925d2/raw/767131ff97b67cd67c93e193fb2bf501f4f113e5/request.json')
+    .then(response => {
+      this.setState({
+        status: {
+          sensors: response.data.sensors  // array of sensor objects with {id, type, is_on}
+        }
+      });
+    });
+  }
+
+  clickSensorHandler = () => {
+    this.setState({
+      showSensors : true
+    });
+  }
+
+  panelClickHandler = (panelName) => {
+    
     switch (panelName) {
       case 'power':
         this.setState({
@@ -95,7 +123,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="wrapper">
+      <div className="wrapper" onLoad={this.getUpdate}>
         <div className="main">
           <div className="container">
             <div className="row">
@@ -106,7 +134,7 @@ class App extends React.Component {
             <div className="row">
               <PanelButton 
                 name="Power" 
-                icon={ power_icon } 
+                icon={ power_icon }
                 click={this.panelClickHandler.bind(this, 'power')} />
               <PanelButton 
                 name="Water" 
@@ -125,7 +153,8 @@ class App extends React.Component {
               <div className="container body">
                 {this.state.powerButtonClicked && 
                 <PanelBody 
-                  name="power"/> }
+                  name="power"
+                  /> }
                 {this.state.waterButtonClicked && 
                 <PanelBody 
                   name="water"/> }
@@ -137,11 +166,20 @@ class App extends React.Component {
                   name="climate"/> }
               </div>
             </div>
+            <div className='container'>
+            <button onClick={this.climateOnClickHandler}>Get Weather</button>
+            { this.state.showSensors ?
+              <Sensors
+                senslist={this.state.status.sensors}/>
+              : <button onClick={this.clickSensorHandler}>Click Here!</button>
+            }
+
+            </div>
           </div>
         </div>
       </div>
     );
   }
-};
+}
 
 export default App;

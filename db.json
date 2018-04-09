@@ -1,0 +1,278 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    },
+    {
+      "title": "Moby Dick",
+      "author": "Herman Melville",
+      "rating": "it's alright",
+      "id": 2
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "sensors": [
+      {
+        "name": "sink2",
+        "is_on": false,
+        "id": 25,
+        "type": "w"
+      },
+      {
+        "name": "bath1",
+        "is_on": false,
+        "id": 27,
+        "type": "w"
+      },
+      {
+        "name": "shower0",
+        "is_on": false,
+        "id": 28,
+        "type": "w"
+      },
+      {
+        "name": "shower1",
+        "is_on": false,
+        "id": 29,
+        "type": "w"
+      },
+      {
+        "name": "clothesWasher",
+        "is_on": false,
+        "id": 30,
+        "type": "w"
+      },
+      {
+        "name": "dishWasher",
+        "is_on": false,
+        "id": 31,
+        "type": "w"
+      },
+      {
+        "name": "door0",
+        "is_on": false,
+        "id": 32,
+        "type": "h"
+      },
+      {
+        "name": "door1",
+        "is_on": false,
+        "id": 33,
+        "type": "h"
+      },
+      {
+        "name": "door2",
+        "is_on": false,
+        "id": 34,
+        "type": "h"
+      },
+      {
+        "name": "window0",
+        "is_on": false,
+        "id": 35,
+        "type": "h"
+      },
+      {
+        "name": "window1",
+        "is_on": false,
+        "id": 36,
+        "type": "h"
+      },
+      {
+        "name": "window2",
+        "is_on": false,
+        "id": 37,
+        "type": "h"
+      },
+      {
+        "name": "window3",
+        "is_on": false,
+        "id": 38,
+        "type": "h"
+      },
+      {
+        "name": "bath0",
+        "is_on": false,
+        "id": 26,
+        "type": "w"
+      },
+      {
+        "name": "waterHeater",
+        "is_on": false,
+        "id": 39,
+        "type": "p"
+      },
+      {
+        "name": "dryer",
+        "is_on": false,
+        "id": 40,
+        "type": "p"
+      },
+      {
+        "name": "window4",
+        "is_on": false,
+        "id": 41,
+        "type": "h"
+      },
+      {
+        "name": "light5",
+        "is_on": false,
+        "id": 5,
+        "type": "p"
+      },
+      {
+        "name": "light0",
+        "is_on": false,
+        "id": 0,
+        "type": "p"
+      },
+      {
+        "name": "light1",
+        "is_on": false,
+        "id": 1,
+        "type": "p"
+      },
+      {
+        "name": "light2",
+        "is_on": false,
+        "id": 2,
+        "type": "p"
+      },
+      {
+        "name": "light3",
+        "is_on": false,
+        "id": 3,
+        "type": "p"
+      },
+      {
+        "name": "light4",
+        "is_on": false,
+        "id": 4,
+        "type": "p"
+      },
+      {
+        "name": "light6",
+        "is_on": false,
+        "id": 6,
+        "type": "p"
+      },
+      {
+        "name": "light7",
+        "is_on": false,
+        "id": 7,
+        "type": "p"
+      },
+      {
+        "name": "light8",
+        "is_on": false,
+        "id": 8,
+        "type": "p"
+      },
+      {
+        "name": "light9",
+        "is_on": false,
+        "id": 9,
+        "type": "p"
+      },
+      {
+        "name": "light10",
+        "is_on": false,
+        "id": 10,
+        "type": "p"
+      },
+      {
+        "name": "light11",
+        "is_on": false,
+        "id": 11,
+        "type": "p"
+      },
+      {
+        "name": "light12",
+        "is_on": false,
+        "id": 12,
+        "type": "p"
+      },
+      {
+        "name": "light13",
+        "is_on": false,
+        "id": 13,
+        "type": "p"
+      },
+      {
+        "name": "light14",
+        "is_on": false,
+        "id": 14,
+        "type": "p"
+      },
+      {
+        "name": "light15",
+        "is_on": false,
+        "id": 15,
+        "type": "p"
+      },
+      {
+        "name": "light16",
+        "is_on": false,
+        "id": 16,
+        "type": "p"
+      },
+      {
+        "name": "tv0",
+        "is_on": false,
+        "id": 17,
+        "type": "p"
+      },
+      {
+        "name": "tv1",
+        "is_on": false,
+        "id": 18,
+        "type": "p"
+      },
+      {
+        "name": "oven",
+        "is_on": false,
+        "id": 20,
+        "type": "p"
+      },
+      {
+        "name": "stove",
+        "is_on": false,
+        "id": 19,
+        "type": "p"
+      },
+      {
+        "name": "microwave",
+        "is_on": false,
+        "id": 21,
+        "type": "p"
+      },
+      {
+        "name": "refrigerator",
+        "is_on": false,
+        "id": 22,
+        "type": "p"
+      },
+      {
+        "name": "sink0",
+        "is_on": false,
+        "id": 23,
+        "type": "w"
+      },
+      {
+        "name": "sink1",
+        "is_on": false,
+        "id": 24,
+        "type": "w"
+      }
+    ]
+  }
+}
