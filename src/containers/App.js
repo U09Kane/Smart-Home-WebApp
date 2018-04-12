@@ -1,23 +1,17 @@
 import React from 'react';
 import axios from 'axios';
 
-import PanelButton from '../components/PanelButton/PanelButton';
-import PanelBody from '../components/PanelBody/PanelBody';
+import Panels from '../components/Panels/Panels';
 import Sensors from '../components/Sensors/Sensors';
-import power_icon from '../assets/light-bulb.svg';
-import water_icon from '../assets/drop.svg';
-import hvac_icon from '../assets/fan.svg';
-import climate_icon from '../assets/thermometer.svg';
+import Weather from '../components/Weather/Weather';
+import climateIcon from '../assets/thermometer.svg';
+import menuIcon from '../assets/menu.svg';
 import './App.css';
 
 
 class App extends React.Component {
 
   state = {
-    powerButtonClicked: false,
-    waterButtonClicked: false,
-    hvacButtonClicked: false,
-    climateButtonClicked: false,
     showSensors: false,
 
     status: {
@@ -44,7 +38,6 @@ class App extends React.Component {
       },
       sensors: [
         {
-
           name: null,
           is_on: false,
           id: null,
@@ -54,126 +47,90 @@ class App extends React.Component {
     }
   };
 
-  // postReq = () => {
-  //   const payload = {
-  //     title: "Moby Dick",
-  //     author: "Herman Melville",
-  //     rating: "it's alright"
-  //   }
-  //   axios.post("http://localhost:3000/profile", payload)
-  //     .then(response => console.log(response));
-  // }
-
   componentDidMount () {
-    axios.get('https://gist.githubusercontent.com/U09Kane/2e739089f77412dab4958741265925d2/raw/767131ff97b67cd67c93e193fb2bf501f4f113e5/request.json')
+
+    const actual = 'http://localhost:3000/profile';
+    const dev = 'https://gist.githubusercontent.com/U09Kane/f71c3e76dd8e53aa8ef9b1dee44647c2/raw/345b99aea7a78d3f836358c0ecb13e43a0fda162/updatedRequest';
+    axios.get(dev)
     .then(response => {
       this.setState({
         status: {
-          sensors: response.data.sensors  // array of sensor objects with {id, type, is_on}
+          power: response.data.power,
+          water: response.data.water,
+          hvac: response.data.hvac,
+          climate: response.data.climate,
+          sensors: response.data.sensors  // array of sensor objects with {id, name, type, is_on}
         }
       });
     });
   }
 
-  clickSensorHandler = () => {
-    this.setState({
-      showSensors : true
-    });
-  }
+  menuClickHandler = () => {
+    this.setState({showSensors: !this.state.showSensors});
+  };
 
-  panelClickHandler = (panelName) => {
+  sensorFlipHandler = ( event, id ) => {
     
-    switch (panelName) {
-      case 'power':
-        this.setState({
-          climateButtonClicked: false,
-          hvacButtonClicked: false,
-          waterButtonClicked: false,
-          powerButtonClicked: true
-        });
-        break;
-      case 'water':
-        this.setState({
-          climateButtonClicked: false,
-          hvacButtonClicked: false,
-          powerButtonClicked: false,
-          waterButtonClicked: true
-        });
-        break;
-      case 'hvac':
-        this.setState({
-          climateButtonClicked: false,
-          powerButtonClicked: false,
-          waterButtonClicked: false,
-          hvacButtonClicked: true
-        });
-        break;
-      case 'climate':
-        this.setState({
-          powerButtonClicked: false,
-          waterButtonClicked: false,
-          hvacButtonClicked: false,
-          climateButtonClicked: true
-        });
-        break;
-      default:
-        break;
-    }
-  }
+    const sensIndex = this.state.status.sensors.findIndex(sens => {
+      return sens.id === id; // returns index of sensor within array
+    });
+
+    const payload = this.state.status;
+    payload.sensors[sensIndex].is_on = !payload.sensors[sensIndex].is_on;
+      
+    axios.post('http://localhost:3000/profile', payload)
+      .then(response => console.log(response))
+      .then(this.forceUpdate());
+
+
+
+
+    // // copy sensor from list (avoids mutating state directly)
+    // const sensor = { ...this.state.status.sensors[sensIndex]}; 
+    // sensor.is_on = !sensor.is_on; // flip the boolean
+    // const sensors = { ...this.state.status.sensors };
+    // sensors[sensIndex] = sensor; // change sensor in that index
+
+    // this.setState({
+    //   status: {
+    //     sensors: sensors // update state with new sensor array
+    //   }
+    // });
+  };
 
   render() {
     return (
-      <div className="wrapper" onLoad={this.getUpdate}>
-        <div className="main">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-12 title-container">
-                <h1 className="title">Home</h1>
+      <div className='wrapper' onLoad={this.getUpdate}>
+        <div className='main'>
+          <div className='container'>
+            <div className='row'>
+              <div className='col-lg-12 title-container'>
+                <h1 className='title'>Home</h1>
               </div>
             </div>
-            <div className="row">
-              <PanelButton 
-                name="Power" 
-                icon={ power_icon }
-                click={this.panelClickHandler.bind(this, 'power')} />
-              <PanelButton 
-                name="Water" 
-                icon={ water_icon } 
-                click={this.panelClickHandler.bind(this, 'water')} />
-              <PanelButton 
-                name="HVAC" 
-                icon={ hvac_icon }
-                click={this.panelClickHandler.bind(this, 'hvac')} />
-              <PanelButton
-                name="Climate" 
-                icon={ climate_icon }
-                click={this.panelClickHandler.bind(this, 'climate')} />
+            <div>
+              <Panels
+                data={this.state.status} />
             </div>
             <div className="row">
-              <div className="container body">
-                {this.state.powerButtonClicked && 
-                <PanelBody 
-                  name="power"
-                  /> }
-                {this.state.waterButtonClicked && 
-                <PanelBody 
-                  name="water"/> }
-                {this.state.hvacButtonClicked && 
-                <PanelBody 
-                  name="hvac"/> }
-                {this.state.climateButtonClicked && 
-                <PanelBody 
-                  name="climate"/> }
-              </div>
-            </div>
-            <div className='container'>
-            <button onClick={this.climateOnClickHandler}>Get Weather</button>
-            { this.state.showSensors ?
-              <Sensors
-                senslist={this.state.status.sensors}/>
-              : <button onClick={this.clickSensorHandler}>Click Here!</button>
-            }
+              <Weather
+                temp={this.state.status.climate.out_temp}
+                humidity={this.state.status.climate.humidity}
+                description={this.state.status.climate.description} />
 
+              {/* <Climate /> */}
+            </div>
+            <div className="row">
+              { 
+                this.state.showSensors ?
+                <Sensors 
+                  sensList={this.state.status.sensors}
+                  flipped={this.sensorFlipHandler}/>
+                : null
+              }
+            </div>
+            <div className=" row menu-bar" onClick={this.menuClickHandler}>
+              <img className="menu-bar_icon"src={menuIcon} alt="" />
             </div>
           </div>
         </div>

@@ -10,6 +10,51 @@
       "author": "Herman Melville",
       "rating": "it's alright",
       "id": 2
+    },
+    {
+      "type": "sensor",
+      "id": 3,
+      "is_on": true
+    },
+    {
+      "type": "sensor",
+      "id": 4,
+      "is_on": true
+    },
+    {
+      "type": "sensor",
+      "id": 5,
+      "is_on": true
+    },
+    {
+      "type": "sensor",
+      "id": 6,
+      "is_on": true
+    },
+    {
+      "type": "sensor",
+      "id": 7,
+      "is_on": true
+    },
+    {
+      "type": "sensor",
+      "id": 8,
+      "is_on": true
+    },
+    {
+      "type": "sensor",
+      "id": 9,
+      "is_on": true
+    },
+    {
+      "type": "sensor",
+      "id": 10,
+      "is_on": true
+    },
+    {
+      "type": "sensor",
+      "id": 11,
+      "is_on": true
     }
   ],
   "comments": [
@@ -20,6 +65,27 @@
     }
   ],
   "profile": {
+    "power": {
+      "last_week": 112,
+      "this_week": 234,
+      "next_week": 150
+    },
+    "water": {
+      "last_week": 120,
+      "this_week": 125,
+      "next_week": 123
+    },
+    "hvac": {
+      "last_week": 50,
+      "this_week": 23,
+      "next_week": 45
+    },
+    "climate": {
+      "thermostat": 72,
+      "out_temp": 80,
+      "description": "cloudy",
+      "humidity": 45
+    },
     "sensors": [
       {
         "name": "sink2",

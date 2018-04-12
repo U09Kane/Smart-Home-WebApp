@@ -8,7 +8,9 @@ const sensor = props => {
     <span className='col-4 Sensor-pill_name'>{props.name}</span>
     <span className='col-4 Sensor-pill_type'>{props.type}</span>
     <span className='col-4 Sensor-pill_ison'>
-      <input type="checkbox" defaultChecked="true" onChange={console.log('hi')}/>
+      <input type="checkbox"
+        checked={props.is_on} 
+        onChange={props.flipped}/>
     </span>
   </div>
   );
