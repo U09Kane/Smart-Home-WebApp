@@ -4,7 +4,8 @@ import axios from 'axios';
 import Panels from '../components/Panels/Panels';
 import Sensors from '../components/Sensors/Sensors';
 import Weather from '../components/Weather/Weather';
-import climateIcon from '../assets/thermometer.svg';
+import Climate from '../components/Climate/Climate';
+import Lockout from '../components/Lockout/Lockout';
 import menuIcon from '../assets/menu.svg';
 import './App.css';
 
@@ -13,6 +14,7 @@ class App extends React.Component {
 
   state = {
     showSensors: false,
+    lockedDown: false,
 
     status: {
       power: {
@@ -26,13 +28,11 @@ class App extends React.Component {
         next_week: null
       },
       hvac: {
-        last_week: null,
-        this_week: null,
-        next_week: null
+        thermostat: null
       },
       climate: {
-        thermostat: null,
-        out_temp: null,
+        intemp: null,
+        extemp: null,
         description: null,
         humidity: null
       },
@@ -50,7 +50,7 @@ class App extends React.Component {
   componentDidMount () {
 
     const actual = 'http://localhost:3000/profile';
-    const dev = 'https://gist.githubusercontent.com/U09Kane/f71c3e76dd8e53aa8ef9b1dee44647c2/raw/345b99aea7a78d3f836358c0ecb13e43a0fda162/updatedRequest';
+    const dev = 'https://gist.githubusercontent.com/U09Kane/f71c3e76dd8e53aa8ef9b1dee44647c2/raw/658a47ac4797f732dc0cbca5e56520997366ccb0/updatedRequest';
     axios.get(dev)
     .then(response => {
       this.setState({
@@ -81,22 +81,46 @@ class App extends React.Component {
     axios.post('http://localhost:3000/profile', payload)
       .then(response => console.log(response))
       .then(this.forceUpdate());
-
-
-
-
-    // // copy sensor from list (avoids mutating state directly)
-    // const sensor = { ...this.state.status.sensors[sensIndex]}; 
-    // sensor.is_on = !sensor.is_on; // flip the boolean
-    // const sensors = { ...this.state.status.sensors };
-    // sensors[sensIndex] = sensor; // change sensor in that index
-
-    // this.setState({
-    //   status: {
-    //     sensors: sensors // update state with new sensor array
-    //   }
-    // });
   };
+
+  tempUpHandler = () => {
+    const payload = this.state.status;
+    payload.hvac.thermostat ++;
+
+    if (payload.hvac.thermostat <= 85)
+    axios.post('http://localhost:3000/profile', payload)
+      .then(response => console.log(response))
+      .then(this.forceUpdate());
+  };
+
+  tempDownHandler = () => {
+    const payload = this.state.status;
+    payload.hvac.thermostat --;
+
+    if (payload.hvac.thermostat >= 55) {
+      axios.post('http://localhost:3000/profile', payload)
+        .then(response => console.log(response))
+        .then(this.forceUpdate());
+    }
+  };
+
+  lockClickHandler = () => {
+    this.setState({lockedDown: !this.state.lockedDown});
+
+    // Set all windows and doors to off
+    if (!this.state.lockedDown) {
+      let payload = this.state.status;
+      for (let i in payload.sensors) {
+        if (i.type === 'h') {
+          i.is_on === false;
+        }
+      }
+      axios.post('http://localhost:3000/profile', payload)
+        .then(response => console.log(response))
+        .then(this.forceUpdate());
+    }
+  };
+
 
   render() {
     return (
@@ -114,15 +138,21 @@ class App extends React.Component {
             </div>
             <div className="row">
               <Weather
-                temp={this.state.status.climate.out_temp}
+                temp={this.state.status.climate.extemp}
                 humidity={this.state.status.climate.humidity}
                 description={this.state.status.climate.description} />
 
-              {/* <Climate /> */}
+              <Climate
+                thermostat={this.state.status.hvac.thermostat}
+                increment={this.tempUpHandler}
+                decrement={this.tempDownHandler} />
+              <Lockout
+                locked={this.state.lockedDown}
+                clicked={this.lockClickHandler} />
             </div>
             <div className="row">
               { 
-                this.state.showSensors ?
+                this.state.showSensors && !this.state.lockedDown ?
                 <Sensors 
                   sensList={this.state.status.sensors}
                   flipped={this.sensorFlipHandler}/>

@@ -66,25 +66,23 @@
   ],
   "profile": {
     "power": {
-      "last_week": 112,
-      "this_week": 234,
-      "next_week": 150
+      "last_week": 179826.16198491098,
+      "next_week": 181323.0325971995,
+      "this_week": 185813.64443406495
     },
     "water": {
-      "last_week": 120,
-      "this_week": 125,
-      "next_week": 123
+      "last_week": 329450.62102641666,
+      "next_week": 321833.9526377792,
+      "this_week": 298983.9474718666
     },
     "hvac": {
-      "last_week": 50,
-      "this_week": 23,
-      "next_week": 45
+      "thermostat": 69
     },
     "climate": {
-      "thermostat": 72,
-      "out_temp": 80,
-      "description": "cloudy",
-      "humidity": 45
+      "intemp": 0,
+      "description": "broken clouds",
+      "humidity": 44,
+      "extemp": 77
     },
     "sensors": [
       {
