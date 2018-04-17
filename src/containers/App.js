@@ -85,9 +85,10 @@ class App extends React.Component {
 
   tempUpHandler = () => {
     const payload = this.state.status;
-    payload.hvac.thermostat ++;
+    
 
-    if (payload.hvac.thermostat <= 85)
+    if (payload.hvac.thermostat < 85)
+    payload.hvac.thermostat++;
     axios.post('http://localhost:3000/profile', payload)
       .then(response => console.log(response))
       .then(this.forceUpdate());
@@ -95,9 +96,10 @@ class App extends React.Component {
 
   tempDownHandler = () => {
     const payload = this.state.status;
-    payload.hvac.thermostat --;
+    
 
-    if (payload.hvac.thermostat >= 55) {
+    if (payload.hvac.thermostat > 55) {
+      payload.hvac.thermostat--;
       axios.post('http://localhost:3000/profile', payload)
         .then(response => console.log(response))
         .then(this.forceUpdate());
