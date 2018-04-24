@@ -4,10 +4,10 @@ import './Weather.css';
 const weather = props => (
 		<div className="col-5 Weather-form">
 			<div className="Weather-form_data">
-				Temperature: <span>{props.temp}</span>	
+				Temperature: <span>{props.extemp + '°'}  (Inside: {props.intemp + '°'})</span>	
 			</div>
 			<div className="Weather-form_data">
-				Humidity: <span>{props.humidity}</span>
+				Humidity: <span>{props.humidity + '%'}</span>
 			</div>
 			<div className="Weather-form_data">
 				Description: <span>{props.description}</span>

@@ -6,7 +6,6 @@
   border-radius: 10px;
   justify-content: center;
   text-align: center;
-  height: 16vh;
 }
 
 .Climate-form_temp {
@@ -14,10 +13,27 @@
   overflow: hidden;
 }
 
-.Climate_button {
-  background: brown;
+.Climate_upButton {
+  background: #EB6851;
   border: solid black;
-  width: 130%;
-  height: 49%;
+  border-top-right-radius: 10px;
+  width: 140%;
+  height: 53%;
+}
+
+.Climate_upButton:hover {
+  cursor: pointer;
+}
+
+.Climate_downButton {
+  background: #5D7E95;
+  border-bottom-right-radius: 10px;
+  border: solid black;
+  width: 140%;
+  height: 53%;
+}
+
+.Climate_downButton:hover {
+  cursor: pointer;
 
 }

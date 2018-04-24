@@ -3,9 +3,6 @@ import Panel from './Panel/Panel'
 
 import powerIcon from '../../assets/light-bulb.svg';
 import waterIcon from '../../assets/tap.svg';
-import hvacIcon from '../../assets/fan.svg';
-
-
 
 const panels = (props) => {
 
@@ -20,7 +17,7 @@ const panels = (props) => {
         name='water'
         icon={waterIcon}
         info={props.data.water}
-        unit='g' />
+        unit='gal' />
 		</div>
 	)
 

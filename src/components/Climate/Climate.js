@@ -10,8 +10,8 @@ const climate = props => {
           {props.thermostat}
         </div>
         <div className="col-4 Climate-form_buttons">
-          <div className="Climate_button"onClick={props.increment}>+</div>
-          <div className="Climate_button"onClick={props.decrement}>-</div>
+          <button className="Climate_upButton"onClick={props.increment}>+</button>
+          <button className="Climate_downButton"onClick={props.decrement}>-</button>
         </div>
       </div>
     </div>

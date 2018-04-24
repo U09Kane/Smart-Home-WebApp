@@ -48,7 +48,6 @@ class App extends React.Component {
   };
 
   componentDidMount () {
-
     const actual = 'http://localhost:3000/profile';
     const dev = 'https://gist.githubusercontent.com/U09Kane/f71c3e76dd8e53aa8ef9b1dee44647c2/raw/658a47ac4797f732dc0cbca5e56520997366ccb0/updatedRequest';
     axios.get(dev)
@@ -70,7 +69,6 @@ class App extends React.Component {
   };
 
   sensorFlipHandler = ( event, id ) => {
-    
     const sensIndex = this.state.status.sensors.findIndex(sens => {
       return sens.id === id; // returns index of sensor within array
     });
@@ -86,7 +84,6 @@ class App extends React.Component {
   tempUpHandler = () => {
     const payload = this.state.status;
     
-
     if (payload.hvac.thermostat < 85)
     payload.hvac.thermostat++;
     axios.post('http://localhost:3000/profile', payload)
@@ -97,7 +94,6 @@ class App extends React.Component {
   tempDownHandler = () => {
     const payload = this.state.status;
     
-
     if (payload.hvac.thermostat > 55) {
       payload.hvac.thermostat--;
       axios.post('http://localhost:3000/profile', payload)
@@ -110,11 +106,12 @@ class App extends React.Component {
     this.setState({lockedDown: !this.state.lockedDown});
 
     // Set all windows and doors to off
-    if (!this.state.lockedDown) {
+    if (this.state.lockedDown) {
       let payload = this.state.status;
-      for (let i in payload.sensors) {
-        if (i.type === 'h') {
-          i.is_on === false;
+      console.log(payload);
+      for (let i = 0; i < payload.sensors.length; i++) {
+        if (payload.sensors[i].type === 'h') {
+          payload.sensors[i].is_on = false;
         }
       }
       axios.post('http://localhost:3000/profile', payload)
@@ -140,7 +137,8 @@ class App extends React.Component {
             </div>
             <div className="row">
               <Weather
-                temp={this.state.status.climate.extemp}
+                extemp={this.state.status.climate.extemp}
+                intemp={this.state.status.climate.intemp}
                 humidity={this.state.status.climate.humidity}
                 description={this.state.status.climate.description} />
 
